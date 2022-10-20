@@ -1,0 +1,163 @@
+---
+title: "HW4_Reinmann"
+author: "Relika Reinmann"
+date: "2022-10-19"
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax
+for authoring HTML, PDF, and MS Word documents. For more details on
+using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that
+includes both content as well as the output of any embedded R code
+chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to
+prevent printing of the R code that generated the plot.
+
+############################## 
+
+## Homework assignment #4
+
+############################## 
+
+# Your full name: Relika Reinmann
+
+# Date: 19.10.22
+
+####### TASK 1: 5 points. Short EDA report
+
+# The main aim of the task is to import data into R, perform brief explanatory analysis, build at least one plot,
+
+# export data using R Markdown and 'knit' by creating an html.file
+
+# 1. Go to <https://andmed.stat.ee/en/stat> and create a data set you want to explore. Import the data into R.
+
+# 2. Prepare EDA (Explanatory Data Analysis). Write at least 5 questions and provide your answers during the first stage of EDA.
+
+# (You can check the slides from Session 5 - Data Exploration (EDA) for ideas or come up with your own questions).
+
+# 3. Provide brief descriptive statistical analysis of your data set (like measures of central tendency and dispersion).
+
+# 4. Include at least one plot into your report.
+
+# If ggplot2 is too complicated for you now, create a plot with R base functions.
+
+# 5. Create a pdf or html file with short EDA of your data set. Send a pdf file directly to me, send html code
+
+# through a gist on GitHub.
+
+#1. installed different packages, selected the data set and imported it
+to R as "Culturalevents" install.packages("tidyverse")
+library(tidyverse)
+
+library(readxl)
+
+library(tibble)
+
+install.packages("googlesheets4") library(googlesheets4)
+
+#Read google sheets data into R culturalevents \<-
+read_sheet("<https://docs.google.com/spreadsheets/d/1EcGNdNIZ8rZ0sdj88n1w_l_FDzPLP2NbqCU7BZ8AOG8/edit#gid=0>")
+
+0
+
+print(culturalevents)
+
+str(culturalevents)
+
+total_number =
+culturalevents$`2020 total` # created the variables total_YES = culturalevents$`2020 Persons YES`
+total_NO =
+culturalevents$`2020 Persons NO` male = culturalevents$Persons[1] female
+= culturalevents$Persons[2] persons = culturalevents$Persons[4, 1]
+#wanted to create a variable for the first column but i don't succeed in
+it
+
+#2. EDA: my questions and answeres \# What metadata is available for
+this data set? Are the descriptions of variables provided? What do we
+know about the sampling? \# On metadata - information on methodology and
+quality is shared, including concepts and classifications, source data
+and data compilation.
+
+# What are the observed population, the observation unit and the reference period?
+
+# Population is at least 15 year old people, observation unit is number of person, reference period is 2020
+
+# What are the data types of the variables? Do we need to change them?
+
+# As data types we have double for numbers and character for Persons. Changed doubles to numeric values.
+
+# Are there any outliers? Are there any values that look like errors?
+
+# everything looks like an error
+
+# Are there any null/NA values?
+
+# no
+
+# 3. Provide brief descriptive statistical analysis of your data set (like measures of central tendency and dispersion).
+
+culturalevents$`2020 total` <- as.numeric(culturalevents$`2020 total`)
+\# Change 2020 total amount of people to integer
+culturalevents$`2020 Persons NO` <- as.numeric(culturalevents$`2020 Persons NO`)
+\# Change 2020 number of persons who didn't go to events to integer
+culturalevents$`2020 Persons YES` <- as.numeric(culturalevents$`2020 Persons YES`)
+
+print(culturalevents)
+
+mean(total_number) \# avarage for 2020 museum visits is 349
+
+mean(total_NO) \# avarage for people who didn't go to cultural events
+2020 was 77
+
+median(total_number) \# median for total visits which is 507
+median(total_NO) \# median for NO visits 98
+
+estimate_mode \<- function(x) { d \<- density(x) d$x[which.max(d$y)] }
+
+estimate_mode(total_number) \# estimated mode for total visits is 539
+estimate_mode(total_NO) \# same for NO visits is 120
+
+sd(total_number) \# sd 246 sd(total_NO) \# sd NO 58
+
+var(total_number) \# 60708 var(total_NO) \# 3468
+
+quantile(total_number) quantile(total_NO)
+
+# 4. Include at least one plot into your report.
+
+boxplot(culturalevents$`2020 total`, horizontal = TRUE) boxplot(culturalevents$`2020 Persons NO`,
+horizontal = TRUE)
+
+hist(total_number) hist(total_NO) \# both of them look weird
+
+plot(total_number, total_NO)
+
+# 5. Create a pdf or html file with short EDA of your data set. Send a pdf file directly to me, send html code
+
+# through a gist on GitHub.
+
+################# END OF HOME ASSIGNMENT
